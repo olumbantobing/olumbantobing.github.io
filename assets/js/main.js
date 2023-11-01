@@ -185,7 +185,7 @@
   });
 
   /**
-   * Porfolio isotope and filter
+   * Portfolio isotope and filter
    */
   window.addEventListener('load', () => {
     let portfolioContainer = select('.portfolio-container');
@@ -232,6 +232,67 @@
    * Portfolio details slider
    */
   new Swiper('.portfolio-details-slider', {
+    speed: 400,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true
+    }
+  });
+
+  /**
+   * Certification isotope and filter
+   */
+  window.addEventListener('load', () => {
+    let certificationContainer = select('.certification-container');
+    if (certificationContainer) {
+      let certificationIsotope = new Isotope(certificationContainer, {
+        itemSelector: '.certification-item',
+        layoutMode: 'fitRows'
+      });
+
+      let certificationFilters = select('#certification-flters li', true);
+
+      on('click', '#certification-flters li', function(e) {
+        e.preventDefault();
+        certificationFilters.forEach(function(el) {
+          el.classList.remove('filter-active');
+        });
+        this.classList.add('filter-active');
+
+        certificationIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+      }, true);
+    }
+
+  });
+
+  /**
+   * Initiate certification lightbox 
+   */
+  const certificationLightbox = GLightbox({
+    selector: '.certification-lightbox'
+  });
+
+  /**
+   * Initiate certification details lightbox 
+   */
+  const certificationDetailsLightbox = GLightbox({
+    selector: '.certification-details-lightbox',
+    width: '90%',
+    height: '90vh'
+  });
+
+  /**
+   * Certification details slider
+   */
+  new Swiper('.certification-details-slider', {
     speed: 400,
     loop: true,
     autoplay: {
